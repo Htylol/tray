@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #if defined (_WIN32) || defined (_WIN64)
@@ -9,7 +10,7 @@
 #define TRAY_APPKIT 1
 #endif
 
-#include "tray/tray.h"
+#include "tray/tray_raw.h"
 
 #if TRAY_APPINDICATOR
 #define TRAY_ICON1 "indicator-messages"
@@ -33,6 +34,14 @@ static void toggle_cb(struct tray_menu *item) {
 static void hello_cb(struct tray_menu *item) {
   (void)item;
   printf("hello cb\n");
+  if(item->context ==NULL){
+    item->context = malloc(4);
+    memset(item->context, 0, 4);
+  }else{
+    int * number = (int*)item->context;
+    (*number)++;
+    printf("hello conut: %d\n",*number);
+  }
   if (strcmp(tray.icon, TRAY_ICON1) == 0) {
     tray.icon = TRAY_ICON2;
   } else {
@@ -58,7 +67,7 @@ static struct tray tray = {
     .icon = TRAY_ICON1,
     .menu =
         (struct tray_menu[]){
-            {.text = "Hello", .cb = hello_cb},
+            {.text = "Hello", .cb = hello_cb },
             {.text = "Checked", .checked = 1, .cb = toggle_cb},
             {.text = "Disabled", .disabled = 1},
             {.text = "-"},
