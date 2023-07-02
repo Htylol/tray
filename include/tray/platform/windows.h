@@ -26,9 +26,9 @@ static LRESULT CALLBACK _tray_wnd_proc(HWND hwnd, UINT msg, WPARAM wparam,
       POINT p;
       GetCursorPos(&p);
       SetForegroundWindow(hwnd);
-      WORD cmd = TrackPopupMenu(hmenu, TPM_LEFTALIGN | TPM_RIGHTBUTTON |
-                                           TPM_RETURNCMD | TPM_NONOTIFY,
-                                p.x, p.y, 0, hwnd, NULL);
+      WORD cmd = TrackPopupMenu(
+          hmenu, TPM_LEFTALIGN | TPM_RIGHTBUTTON | TPM_RETURNCMD | TPM_NONOTIFY,
+          p.x, p.y, 0, hwnd, NULL);
       SendMessage(hwnd, WM_COMMAND, cmd, 0);
       return 0;
     }
@@ -36,7 +36,8 @@ static LRESULT CALLBACK _tray_wnd_proc(HWND hwnd, UINT msg, WPARAM wparam,
   case WM_COMMAND:
     if (wparam >= ID_TRAY_FIRST) {
       MENUITEMINFO item = {
-          .cbSize = sizeof(MENUITEMINFO), .fMask = MIIM_ID | MIIM_DATA,
+          .cbSize = sizeof(MENUITEMINFO),
+          .fMask = MIIM_ID | MIIM_DATA,
       };
       if (GetMenuItemInfo(hmenu, wparam, FALSE, &item)) {
         struct tray_menu *menu = (struct tray_menu *)item.dwItemData;
@@ -83,7 +84,7 @@ static HMENU _tray_menu(struct tray_menu *m, UINT *id) {
   return hmenu;
 }
 
-static int tray_init(struct tray *tray) {
+int tray_init(struct tray *tray) {
   memset(&wc, 0, sizeof(wc));
   wc.cbSize = sizeof(WNDCLASSEX);
   wc.lpfnWndProc = _tray_wnd_proc;
@@ -111,7 +112,7 @@ static int tray_init(struct tray *tray) {
   return 0;
 }
 
-static int tray_loop(int blocking) {
+int tray_loop(int blocking) {
   MSG msg;
   if (blocking) {
     GetMessage(&msg, NULL, 0, 0);
@@ -126,7 +127,7 @@ static int tray_loop(int blocking) {
   return 0;
 }
 
-static void tray_update(struct tray *tray) {
+void tray_update(struct tray *tray) {
   HMENU prevmenu = hmenu;
   UINT id = ID_TRAY_FIRST;
   hmenu = _tray_menu(tray->menu, &id);
@@ -144,7 +145,7 @@ static void tray_update(struct tray *tray) {
   }
 }
 
-static void tray_exit() {
+void tray_exit() {
   Shell_NotifyIcon(NIM_DELETE, &nid);
   if (nid.hIcon != 0) {
     DestroyIcon(nid.hIcon);

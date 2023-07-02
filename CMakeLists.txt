@@ -4,7 +4,7 @@ project(tray VERSION 0.1.0 LANGUAGES C CXX)
 include(CTest)
 enable_testing()
 
-add_library(tray tray.cpp)
+add_library(tray src/tray.cpp src/raw_tray.c )
 target_include_directories(tray
     PUBLIC
     include
@@ -13,6 +13,9 @@ target_include_directories(tray
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 add_executable(tray_test example/example.c)
 target_link_libraries(tray_test PRIVATE tray)
+
+add_executable(traypp_test example/example_pp.cpp)
+target_link_libraries(traypp_test PRIVATE tray)
 
 add_custom_command(
     TARGET tray_test

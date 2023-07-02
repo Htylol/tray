@@ -1,40 +1,30 @@
-#ifndef TRAY_H
-#define TRAY_H
-#if defined(__cplusplus)
-extern "C" {
-#endif
-struct tray_menu;
+#pragma once
+#include <functional>
+#include <memory>
+#include <string>
+#include <vector>
 
-struct tray {
-  char *icon;
-  struct tray_menu *menu;
+#include "tray_raw.h"
+namespace trays {
+class Menu {
+public:
+  std::string text_;
+  bool check_able_{};
+  bool disabled_{};
+  std::function<void(Menu* self)> on_click_;
 };
+class Tray {
+public:
+  Tray(std::string icon_path, std::vector<Menu> menus = {});
+  void run();
 
-struct tray_menu {
-  char *text;
-  int disabled;
-  int checked;
+  void add(Menu menu);
 
-  void (*cb)(struct tray_menu *);
-  void *context;
-
-  struct tray_menu *submenu;
+private:
+  std::vector<std::unique_ptr<Menu>> menus_;
+  std::vector<tray_menu> raw_menus_;
+  std::string icon_ = "icon.ico";
+  struct tray tray_ {};
+  bool init_finished_{};
 };
-
-static void tray_update(struct tray *tray);
-
-#if defined(TRAY_APPINDICATOR)
-#include "platform/linux.h"
-#elif defined(TRAY_APPKIT)
-#include "platform/macos.h"
-#elif defined(_WIN32)
-#include "platform/windows.h"
-#else
-static_assert(false,"unknow platform");
-#endif
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* TRAY_H */
+} // namespace trays
