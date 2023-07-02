@@ -9,7 +9,7 @@
 #define TRAY_APPKIT 1
 #endif
 
-#include "tray.h"
+#include "tray/tray.h"
 
 #if TRAY_APPINDICATOR
 #define TRAY_ICON1 "indicator-messages"
