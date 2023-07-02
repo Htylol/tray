@@ -23,7 +23,7 @@ public:
 private:
   std::vector<std::unique_ptr<Menu>> menus_;
   std::vector<tray_menu> raw_menus_;
-  std::string icon_ = "icon.ico";
+  std::string icon_;
   struct tray tray_ {};
   bool init_finished_{};
 };
