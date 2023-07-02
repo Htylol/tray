@@ -10,6 +10,16 @@ target_include_directories(tray
     include
 )
 
+if(UNIX AND NOT APPLE)
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(APPINDICATOR REQUIRED appindicator3-0.1)
+    target_compile_options(tray PRIVATE ${APPINDICATOR_CFLAGS})
+    target_link_libraries(tray PRIVATE ${APPINDICATOR_LIBRARIES})
+    target_link_directories(tray PRIVATE ${APPINDICATOR_LIBRARY_DIRS})
+elseif(APPLE)
+    target_link_libraries(tray PRIVATE "-framework Cocoa")
+endif()
+
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 add_executable(tray_test example/example.c)
 target_link_libraries(tray_test PRIVATE tray)
