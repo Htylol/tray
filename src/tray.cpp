@@ -12,6 +12,18 @@ trays::Tray::Tray(std::string icon_path, std::vector<Menu> menus)
 
   tray_.icon = &icon_path[0];
   tray_init(&tray_);
+
+  // this will not change content of menu.
+  // maybe we don't have to keep resource for title for build is finished.
+  // for(auto &m:menus_){
+  //   m->text_ = "FSDFSDFSDF";
+  // }
+
+  // this too.
+  // tray_.menu = nullptr;
+
+  // what we need to keep it menu* and it's callback.
+  // you can throw away anythings others.
 }
 void trays::Tray::run() {
   while (!tray_loop(1)) {
