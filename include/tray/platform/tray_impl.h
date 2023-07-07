@@ -1,7 +1,7 @@
 #include "tray/tray_raw.h"
-#if defined(TRAY_APPINDICATOR)
+#if defined(__linux__)
 #include "linux.h"
-#elif defined(TRAY_APPKIT)
+#elif defined(TARGET_OS_MAC)
 #include "macos.h"
 #elif defined(_WIN32)
 #include "windows.h"
