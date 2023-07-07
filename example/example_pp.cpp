@@ -5,12 +5,23 @@
 int main() {
   trays::Menu m;
   m.text_ = "Open work dir";
-  m.on_click_ = [](auto) { system("open ."); };
+
+  // linux: png, svg
+  std::string icon_name =
+  #ifdef _WIN32
+  "icon.icon";
+  #else
+  "icon.png";
+  #endif
 
   // absolute path for linux.
-  // linux: png, svg
-  std::string icon_name = "icon.png";
   auto icon_path =std::filesystem::current_path() / icon_name;
+  #ifdef _WIN32
+  m.on_click_ = [](auto) { system("start ."); };
+  #else
+  m.on_click_ = [](auto) { system("open ."); };
+  #endif
+
   trays::Tray t{icon_path.string(), {m}};
   //   t.add(m);
   t.run();
