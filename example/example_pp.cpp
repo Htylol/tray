@@ -7,12 +7,7 @@ int main() {
   m.text_ = "Open work dir";
 
   // linux: png, svg
-  std::string icon_name =
-  #ifdef _WIN32
-  "icon.icon";
-  #else
-  "icon.png";
-  #endif
+  std::string icon_name = "icon.png";
 
   // absolute path for linux.
   auto icon_path =std::filesystem::current_path() / icon_name;
