@@ -37,7 +37,7 @@ target_link_libraries(traypp_test PRIVATE tray)
 add_custom_command(
     TARGET tray_test
     POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
             ${CMAKE_SOURCE_DIR}/example/
             ${CMAKE_BINARY_DIR}/
 )

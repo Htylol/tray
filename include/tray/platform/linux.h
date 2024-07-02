@@ -16,18 +16,14 @@ static GtkMenuShell *_tray_menu(struct tray_menu *m) {
   GtkMenuShell *menu = (GtkMenuShell *)gtk_menu_new();
   for (; m != NULL && m->text != NULL; m++) {
     GtkWidget *item;
+
     if (strcmp(m->text, "-") == 0) {
       item = gtk_separator_menu_item_new();
     } else {
-      if (m->submenu != NULL) {
         item = gtk_menu_item_new_with_label(m->text);
         gtk_menu_item_set_submenu(GTK_MENU_ITEM(item),
                                   GTK_WIDGET(_tray_menu(m->submenu)));
-      } else {
-        item = gtk_check_menu_item_new_with_label(m->text);
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item), !!m->checked);
-      }
-      gtk_widget_set_sensitive(item, !m->disabled);
+
       if (m->cb != NULL) {
         g_signal_connect(item, "activate", G_CALLBACK(_tray_menu_cb), m);
       }

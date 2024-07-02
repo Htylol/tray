@@ -15,6 +15,7 @@ struct tray_menu {
   int disabled;
   int checked;
 
+
   void (*cb)(struct tray_menu *);
   void *context;
 

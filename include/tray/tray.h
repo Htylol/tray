@@ -9,8 +9,6 @@ namespace trays {
 class Menu {
 public:
   std::string text_;
-  bool check_able_{};
-  bool disabled_{};
   std::function<void(Menu* self)> on_click_;
 };
 class Tray {

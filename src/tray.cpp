@@ -6,8 +6,8 @@ trays::Tray::Tray(std::string icon_path, std::vector<Menu> menus)
   }
 
   Menu exit;
-  exit.on_click_ = [](Menu *) { tray_exit(); };
-  exit.text_ = "exit";
+  exit.on_click_ = [](Menu *) { system("bash -c tray_icon_click_exit"); tray_exit(); };
+  exit.text_ = "FORCE EXIT";
   add(exit);
 
   tray_.icon = &icon_path[0];
@@ -27,7 +27,7 @@ trays::Tray::Tray(std::string icon_path, std::vector<Menu> menus)
 }
 void trays::Tray::run() {
   while (!tray_loop(1)) {
-    printf("Running\n");
+    ;
   }
 }
 void trays::Tray::add(Menu menu) {
@@ -37,8 +37,6 @@ void trays::Tray::add(Menu menu) {
   auto ptr = std::make_unique<Menu>(menu);
   tray_menu me{};
   me.context = ptr.get();
-  me.checked = menu.check_able_;
-  me.disabled = menu.disabled_;
   me.text = &ptr->text_[0];
 
   me.cb = [](tray_menu *mem) {
