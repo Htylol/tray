@@ -16,7 +16,6 @@ class Tray {
 public:
   Tray(std::string icon_path, std::vector<Menu> menus = {});
   void run();
-
   void add(Menu menu);
 
 private:

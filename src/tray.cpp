@@ -3,22 +3,11 @@
 #include <libintl.h>
 #include <locale.h>
 
-#define _(STRING) gettext(STRING)
-
 trays::Tray::Tray(std::string icon_path, std::vector<Menu> menus)
     : icon_(icon_path) {
   for (auto m : menus) {
     add(m);
   }
-
-  setlocale (LC_ALL, "");
-  bindtextdomain ("tray", getenv("PWD"));
-  textdomain ("tray");
-
-  Menu exit;
-  exit.on_click_ = [](Menu *) { system("bash -c tray_icon_click_exit"); tray_exit(); };
-  exit.text_ = _("FORCE EXIT");
-  add(exit);
 
   tray_.icon = &icon_path[0];
   tray_init(&tray_);
@@ -36,9 +25,7 @@ trays::Tray::Tray(std::string icon_path, std::vector<Menu> menus)
   // you can throw away anythings others.
 }
 void trays::Tray::run() {
-  while (!tray_loop(1)) {
-    ;
-  }
+  while (!tray_loop(1)) {}
 }
 void trays::Tray::add(Menu menu) {
   if (!raw_menus_.empty()) {
