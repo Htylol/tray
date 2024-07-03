@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "tray_raw.h"
+
 namespace trays {
 class Menu {
 public:

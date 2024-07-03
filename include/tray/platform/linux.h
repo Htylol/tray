@@ -23,7 +23,6 @@ static GtkMenuShell *_tray_menu(struct tray_menu *m) {
         item = gtk_menu_item_new_with_label(m->text);
         gtk_menu_item_set_submenu(GTK_MENU_ITEM(item),
                                   GTK_WIDGET(_tray_menu(m->submenu)));
-
       if (m->cb != NULL) {
         g_signal_connect(item, "activate", G_CALLBACK(_tray_menu_cb), m);
       }
@@ -38,6 +37,7 @@ static GtkMenuShell *_tray_menu(struct tray_menu *m) {
   if (gtk_init_check(0, NULL) == FALSE) {
     return -1;
   }
+  g_set_application_name ("PortProton");
   indicator = app_indicator_new(TRAY_APPINDICATOR_ID, tray->icon,
                                 APP_INDICATOR_CATEGORY_APPLICATION_STATUS);
   app_indicator_set_status(indicator, APP_INDICATOR_STATUS_ACTIVE);

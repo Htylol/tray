@@ -30,9 +30,9 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 add_executable(tray_test example/example.c)
 target_link_libraries(tray_test PRIVATE tray)
 
-add_executable(traypp_test example/example_pp.cpp)
-set_target_properties(traypp_test PROPERTIES CXX_STANDARD 17)
-target_link_libraries(traypp_test PRIVATE tray)
+add_executable(pw_tray example/example_pp.cpp)
+set_target_properties(pw_tray PROPERTIES CXX_STANDARD 17)
+target_link_libraries(pw_tray PRIVATE tray)
 
 add_custom_command(
     TARGET tray_test
