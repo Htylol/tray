@@ -4,7 +4,7 @@ project(tray VERSION 0.1.0 LANGUAGES C CXX)
 include(CTest)
 enable_testing()
 
-add_library(tray src/tray.cpp src/raw_tray.c )
+add_library(tray src/tray.cpp src/raw_tray.c)
 target_include_directories(tray
     PUBLIC
     include
@@ -13,7 +13,7 @@ target_include_directories(tray
 if(UNIX AND NOT APPLE)
     find_package(PkgConfig REQUIRED)
     message(STATUS "To install appindicator3[ayatana-appindicator3-0.1],  sudo apt install libayatana-appindicator3-dev")
-    pkg_check_modules(APPINDICATOR REQUIRED       ayatana-appindicator3-0.1)
+    pkg_check_modules(APPINDICATOR REQUIRED ayatana-appindicator3-0.1)
     target_compile_options(tray PRIVATE ${APPINDICATOR_CFLAGS})
     target_link_libraries(tray PRIVATE ${APPINDICATOR_LIBRARIES})
     target_link_directories(tray PRIVATE ${APPINDICATOR_LIBRARY_DIRS})
@@ -27,20 +27,11 @@ elseif(APPLE)
 endif()
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-add_executable(tray_test example/example.c)
-target_link_libraries(tray_test PRIVATE tray)
 
 add_executable(pw_tray example/example_pp.cpp)
 set_target_properties(pw_tray PROPERTIES CXX_STANDARD 17)
 target_link_libraries(pw_tray PRIVATE tray)
 
-add_custom_command(
-    TARGET tray_test
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-            ${CMAKE_SOURCE_DIR}/example/
-            ${CMAKE_BINARY_DIR}/
-)
 endif()
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
