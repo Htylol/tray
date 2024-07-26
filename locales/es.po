@@ -18,18 +18,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.4.4\n"
 
-#: example/example_pp.cpp:17
+#: example/example_pp.cpp:19
 msgid "WINEFILE"
 msgstr "WINEFILE"
 
-#: example/example_pp.cpp:19
+#: example/example_pp.cpp:21
 msgid "TASKMGR"
 msgstr "GESTOR DE TAREAS"
 
-#: example/example_pp.cpp:21
+#: example/example_pp.cpp:23
 msgid "CHANGELOG"
 msgstr "LISTA DE CAMBIOS"
 
-#: example/example_pp.cpp:23
+#: example/example_pp.cpp:25
 msgid "FORCE EXIT"
 msgstr "SALIDA FORZADA"

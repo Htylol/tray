@@ -28,9 +28,9 @@ endif()
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
-add_executable(pw_tray example/example_pp.cpp)
-set_target_properties(pw_tray PROPERTIES CXX_STANDARD 17)
-target_link_libraries(pw_tray PRIVATE tray)
+add_executable(tray_gui_pp example/example_pp.cpp)
+set_target_properties(tray_gui_pp PROPERTIES CXX_STANDARD 17)
+target_link_libraries(tray_gui_pp PRIVATE tray)
 
 endif()
 
