@@ -27,7 +27,7 @@ int main() {
   q.on_click_ = [](auto) { system("bash -c pw_tray_winefile &"); };
   w.on_click_ = [](auto) { system("bash -c pw_tray_taskmgr &"); };
   e.on_click_ = [](auto) { system("bash -c open_changelog &"); };
-  r.on_click_ = [](auto) { system("bash -c kill_portwine &"); tray_exit(); };
+  r.on_click_ = [](auto) { system("bash -c kill_portwine"); system("bash -c pw_exit_tray"); tray_exit(); };
   trays::Tray t{icon_path.string(), {q,w,e,r}};
 
   t.run();
